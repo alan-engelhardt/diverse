@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T</title>
+    <style>
+        body {
+            position: relative;
+        }
+
+        section {
+            position: absolute;
+            top: 1100px;
+            left: 100px;
+        }
+
+        div {
+            margin: 1em;
+            width: 300px;
+            aspect-ratio: 1/1;
+            background-color: orange;
+            opacity: 0;
+            translate: 1000px;
+        }
+
+        .vis {
+            transition: 1s;
+            translate: 0;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Test</h1>
+    <section>
+        <div>tom</div>
+        <div>tom</div>
+        <div>tom</div>
+        <div>tom</div>
+    </section>
+
+    <script>
+        function elementIsVisibleInViewport(el, partiallyVisible = true) {
+            const { top, left, bottom, right } = el.getBoundingClientRect();
+            const { innerHeight } = window;
+            return partiallyVisible ? ((top > 0 && top < innerHeight) || (bottom > 0 && bottom < innerHeight)) : top >= 0 && bottom <= innerHeight;
+        };
+
+        const section = document.querySelector("section");
+        const divs = document.querySelectorAll("div");
+
+        document.addEventListener("scroll", testAll);
+
+        function testAll() {
+            // test(section);
+            divs.forEach(div => test(div));
+        }
+
+        function test(elm) {
+            console.log(elementIsVisibleInViewport(elm));
+            if (elementIsVisibleInViewport(elm)) {
+                elm.classList.add("vis");
+            } else {
+                elm.classList.remove("vis");
+            }
+        }
+
+    </script>
+</body>
+
+</html>

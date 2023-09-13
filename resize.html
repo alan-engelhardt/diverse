@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>resize</title>
+</head>
+
+<body>
+    <script>
+        window.addEventListener('resize', handleViewportResize);
+        let resizeTimer;
+        handleViewportResize();
+
+        // Function to handle viewport size changes
+        function handleViewportResize() {
+            clearTimeout(resizeTimer);
+
+            resizeTimer = setTimeout(function () {
+                // This code will only execute after the user has stopped resizing for a certain delay (e.g., 200 milliseconds).
+                const viewportWidth = window.innerWidth;
+
+                if (viewportWidth >= 800) {
+                    console.log("over 800 - hent data...");
+                } else {
+                    console.log("under 800 - gør ingenting");
+                }
+
+            }, 200); // Adjust the delay here as needed
+        }
+
+    </script>
+</body>
+
+</html>

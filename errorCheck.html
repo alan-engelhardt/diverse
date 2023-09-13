@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T2</title>
+</head>
+
+<body>
+    <script>
+        const url = "https://hnrcndxoquhelmpaqheh.supabase.co/rest/v1/Dataset";
+        const apikey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhucmNuZHhvcXVoZWxtcGFxaGVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTM4MjI5MTksImV4cCI6MjAwOTM5ODkxOX0.Kj0vgWH3imfxSBjrhKN9746mppt3v9ldhd1y2ugyfyc";
+
+        fetch(url, {
+            method: "GET",
+            headers: {
+                apikey: apikey
+            }
+        }).then(response => {
+            // Check if the response status is OK (200)
+            if (response.ok) {
+                return response.json(); // Parse the JSON response
+            } else {
+                throw new Error('Failed to POST data');
+            }
+        })
+            .then(responseData => {
+                // Handle the response data here
+                console.log('Response Data:', responseData);
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error('Error:', error);
+            })
+            .then(showData);
+
+
+        function showData(items) {
+            console.log(items);
+        }
+    </script>
+</body>
+
+</html>

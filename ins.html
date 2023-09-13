@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ins</title>
+    <style>
+        body {
+            padding: 1em;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1em;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        input[type="text"],
+        button {
+            display: block;
+            margin: 1em 0;
+        }
+
+        form,
+        #hentknap {
+            margin-top: 1em;
+        }
+
+        article p:last-child {
+            color: red;
+        }
+
+        .skjul {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="form">
+        <form>
+            <input type="text" placeholder="Navn" id="navn">
+            <input type="text" placeholder="Levested" id="sted">
+            <label for="sund">Sund</label>
+            <input type="radio" name="sund" id="sund">
+            <label for="usund">Usund</label>
+            <input type="radio" name="sund" id="usund" checked>
+            <button>Send</button>
+        </form>
+        <button id="hentknap">Hent data</button>
+    </div>
+    <template>
+        <article>
+            <h3></h3>
+            <p>Oprettet <span></span></p>
+            <p>Findes i <span></span></p>
+            <p>Usund</p>
+        </article>
+    </template>
+    <main></main>
+    <script>
+
+
+        const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNwYWJramRkeHpuc3BydmtrenVmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTM4MzMxMzUsImV4cCI6MjAwOTQwOTEzNX0.p8QClExDi-oKBQN9Gnk3nkdEkkwBAEwQVO_EMPpfAZQ";
+        const url = "https://spabkjddxznsprvkkzuf.supabase.co/rest/v1/mad";
+
+        //const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBiaHFwdGNndHVuZWpmd3N1bnppIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzg1MjU3NjEsImV4cCI6MTk5NDEwMTc2MX0.qPLnnbV_2nDBjczEpGDt10lr3DQgCZ54roKiy0OZXL4"
+        //const url = "https://pbhqptcgtunejfwsunzi.supabase.co/rest/v1/newsletter";
+
+        const template = document.querySelector("template").content;
+        const main = document.querySelector("main");
+        document.querySelector("#hentknap").addEventListener("click", hentData);
+        document.querySelector("form button").addEventListener("click", sendInput);
+
+        const options = {
+            method: "GET",
+            headers: {
+                apikey: key
+            }
+        }
+
+
+
+        function hentData() {
+            fetch(url, options).then(res => res.json()).then(visListe);
+        }
+
+        function visListe(data) {
+            // console.log(data);
+            main.textContent = "";
+            data.forEach(elm => {
+                const klon = template.cloneNode(true);
+                klon.querySelector("h3").textContent = elm.navn;
+                klon.querySelector("p span").textContent = elm.created_at.slice(0, 10);
+                klon.querySelector("p+p span").textContent = elm.levested;
+                if (elm.sund) {
+                    klon.querySelector("p+p+p").classList.add("skjul");
+                }
+                // klon.querySelector("img").src = elm.image;
+                main.appendChild(klon)
+            });
+        }
+
+        function sendInput(e) {
+            e.preventDefault()
+            const input1 = document.querySelector("#navn").value;
+            const input2 = document.querySelector("#sted").value;
+            const input3 = document.querySelector("#sund").checked;
+            const jsonData = JSON.stringify({ navn: input1, levested: input2, sund: input3 });
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    apikey: key,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: jsonData
+            })
+                .then(response => {
+                    // Check if the response status is OK (200)
+                    if (response.ok) {
+                        return response.json(); // Parse the JSON response
+                    } else {
+                        throw new Error('Failed to POST data');
+                    }
+                })
+                .then(responseData => {
+                    // Handle the response data here
+                    console.log('Response Data:', responseData);
+                })
+                .catch(error => {
+                    // Handle errors here
+                    console.error('Error:', error);
+                })
+                .then(hentData);
+        }
+    </script>
+</body>
+
+</html>

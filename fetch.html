@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T</title>
+    <style>
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1em;
+        }
+
+        img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <template>
+        <article>
+            <h3></h3>
+            <p>Oprettet: <span></span></p>
+            <p>ID: <span></span></p>
+        </article>
+    </template>
+    <main></main>
+    <script>
+        const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNwYWJramRkeHpuc3BydmtrenVmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTM4MzMxMzUsImV4cCI6MjAwOTQwOTEzNX0.p8QClExDi-oKBQN9Gnk3nkdEkkwBAEwQVO_EMPpfAZQ";
+        const url = "https://spabkjddxznsprvkkzuf.supabase.co/rest/v1/mad";
+
+        const template = document.querySelector("template").content;
+        const main = document.querySelector("main");
+
+        const options = {
+            method: "GET",
+            headers: {
+                apikey: key
+            }
+        }
+
+        fetch(url, options).then(res => res.json()).then(visListe);
+
+        function visListe(data) {
+            console.log(data);
+            data.forEach(elm => {
+                const klon = template.cloneNode(true);
+                klon.querySelector("h3").textContent = elm.navn;
+                klon.querySelector("p span").textContent = elm.created_at.slice(0, 10);
+                klon.querySelector("p:last-child span").textContent = elm.id;
+                // klon.querySelector("img").src = elm.image;
+                main.appendChild(klon)
+            });
+        }
+    </script>
+</body>
+
+</html>
