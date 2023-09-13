@@ -50,8 +50,7 @@
         function elementIsVisibleInViewport(el) {
             const { top, left, bottom, right } = el.getBoundingClientRect();
             const { innerHeight } = window;
-            // return true ? top < innerHeight : top > innerHeight;
-            if (top < innerHeight - 100) {
+            if (top < innerHeight - 50) {
                 return true
             }
         };
@@ -59,15 +58,9 @@
         const section = document.querySelector("section");
         const divs = document.querySelectorAll("div");
 
-        document.addEventListener("scroll", testAll);
-
-        function testAll() {
-            // test(section);
-            divs.forEach(div => test(div));
-        }
+        document.addEventListener("scroll", () => divs.forEach(div => test(div)));
 
         function test(elm) {
-            console.log(elementIsVisibleInViewport(elm));
             if (elementIsVisibleInViewport(elm)) {
                 elm.classList.add("vis");
             } else {
