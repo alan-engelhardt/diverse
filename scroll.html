@@ -48,14 +48,12 @@
 
     <script>
         function elementIsVisibleInViewport(el) {
-            const { top, left, bottom, right } = el.getBoundingClientRect();
-            const { innerHeight } = window;
-            if (top < innerHeight - 50) {
+            const top = el.getBoundingClientRect().top;
+            if (top < window.innerHeight - 50) {
                 return true
             }
         };
 
-        const section = document.querySelector("section");
         const divs = document.querySelectorAll("div");
 
         document.addEventListener("scroll", () => divs.forEach(div => test(div)));
