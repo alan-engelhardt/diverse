@@ -21,13 +21,13 @@
             width: 300px;
             aspect-ratio: 1/1;
             background-color: orange;
+            rotate: 90deg;
             opacity: 0;
-            translate: 1000px;
+            transition: 1s;
         }
 
         .vis {
-            transition: 1s;
-            translate: 0;
+            rotate: 0deg;
             opacity: 1;
         }
     </style>
@@ -35,18 +35,25 @@
 
 <body>
     <h1>Test</h1>
+    <p>Kasser animerer, når du scroller og de dukker op over i bunden af vinduet</p>
     <section>
-        <div>tom</div>
-        <div>tom</div>
-        <div>tom</div>
-        <div>tom</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi aut repellat voluptates animi rem ex,
+            distinctio
+            ut quisquam iusto doloremque, enim ullam sequi aliquid pariatur voluptas et quod harum optio.</p>
     </section>
 
     <script>
-        function elementIsVisibleInViewport(el, partiallyVisible = true) {
+        function elementIsVisibleInViewport(el) {
             const { top, left, bottom, right } = el.getBoundingClientRect();
             const { innerHeight } = window;
-            return partiallyVisible ? ((top > 0 && top < innerHeight) || (bottom > 0 && bottom < innerHeight)) : top >= 0 && bottom <= innerHeight;
+            // return true ? top < innerHeight : top > innerHeight;
+            if (top < innerHeight - 100) {
+                return true
+            }
         };
 
         const section = document.querySelector("section");
