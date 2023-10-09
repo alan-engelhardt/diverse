@@ -7,7 +7,7 @@
     <title>T</title>
     <style>
         h1 {
-            margin-bottom: 110vh;
+            margin-bottom: 80vh;
         }
 
         div {
@@ -15,10 +15,14 @@
             width: 200px;
             aspect-ratio: 1/1;
             margin: 10em;
+            transition: .2s;
+            scale: 0;
+            rotate: 45deg;
         }
 
         .animation {
-            rotate: 1turn;
+            scale: 1;
+            rotate: 0deg;
         }
     </style>
 </head>
@@ -40,22 +44,36 @@
     </section>
 
     <script>
-        const observer = new IntersectionObserver(entries => {
-            console.log("in")
-            entries.forEach(entry => {
-                const square = entry.target.querySelector('div');
+        window.addEventListener('DOMContentLoaded', () => {
+            const boxes = document.querySelectorAll('div'); // Vælg alle div'er
 
-                if (entry.isIntersecting) {
-                    square.classList.add('animation');
-                    return; // if we added the class, exit the function
-                }
+            const observerOptions = {
+                root: null, // Brug viewport som rod
+                rootMargin: '0px', // Ingen margin
+                threshold: 0.5, // 50% synlighed kræves for at udløse animationen
+            };
 
-                // We're not intersecting, so remove the class!
-                square.classList.remove('animation');
-            });
-        });
+            const boxObservers = []; // Et array med IntersectionObserver for hver div
 
-        observer.observe(document.querySelector('div'));
+            boxes.forEach((box, index) => {
+                const boxObserver = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            console.log(index)
+                            box.classList.add('animation');
+                            //boxObserver.unobserve(box); // Stop at observere denne boks, når animationen er udløst
+                        } else {
+                            box.classList.remove('animation'); // Udenfor winndow
+                        }
+                    });
+                }, observerOptions);
+
+                boxObservers.push(boxObserver);
+
+                // Begynd at observere boksen
+                boxObserver.observe(box);
+            })
+        })
     </script>
 </body>
 
