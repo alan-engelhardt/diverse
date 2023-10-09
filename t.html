@@ -4,16 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T</title>
+    <title>IntersectionObserver</title>
     <style>
-        h1 {
-            margin-bottom: 80vh;
+        body {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        p+p {
+            margin-bottom: 60vh;
         }
 
         div {
             background-color: orange;
-            width: 200px;
-            aspect-ratio: 1/1;
+            width: 400px;
+            aspect-ratio: 2/1;
             margin: 10em;
             transition: .2s;
             scale: 0;
@@ -29,6 +34,10 @@
 
 <body>
     <h1>Scroll test</h1>
+    <p>Når du scroller, animerer boksene ind og ud</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem error placeat, eaque aliquid iusto mollitia. Qui,
+        dolorum? Tenetur, quia veniam. Dignissimos omnis obcaecati perferendis ea consectetur porro nulla animi placeat?
+    </p>
     <section>
         <div></div>
         <div></div>
