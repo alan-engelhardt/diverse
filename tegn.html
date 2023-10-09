@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T</title>
+    <style>
+        svg {
+            border-radius: 50%;
+            stroke: black;
+            fill: none;
+            stroke-width: 1;
+            stroke-dasharray: 101;
+            stroke-dashoffset: 101;
+            rotate: 180deg;
+            transition: 2s linear;
+        }
+
+        .tegn {
+            stroke-dashoffset: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <svg width="500" height="500" class="tegn">
+        <circle cx="250" cy="250" r="249" pathLength="100" />
+        <line x1="500" y1="250" x2="0" y2="250" pathLength="100" />
+        <line x1="250" y1="500" x2="250" y2="0" pathLength="100" />
+    </svg>
+
+</body>
+
+</html>
