@@ -47,19 +47,13 @@
     </section>
 
     <script>
-        function elementIsVisibleInViewport(el) {
-            const top = el.getBoundingClientRect().top;
-            if (top < window.innerHeight - 50) {
-                return true
-            }
-        };
-
         const divs = document.querySelectorAll("div");
 
         document.addEventListener("scroll", () => divs.forEach(div => test(div)));
 
         function test(elm) {
-            if (elementIsVisibleInViewport(elm)) {
+            const top = elm.getBoundingClientRect().top;
+            if (top < window.innerHeight - 50) {
                 elm.classList.add("vis");
             } else {
                 elm.classList.remove("vis");

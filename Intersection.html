@@ -54,7 +54,7 @@
 
     <script>
         window.addEventListener('DOMContentLoaded', () => {
-            const boxes = document.querySelectorAll('div'); // Vælg alle div'er
+            const boxes = document.querySelectorAll('div:nth-child(odd)'); // Vælg alle div'er
 
             const observerOptions = {
                 root: null, // Brug viewport som rod

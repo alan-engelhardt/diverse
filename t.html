@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Custom cursor class with size */
+        .custom-cursor {
+            width: 50px;
+            height: 50px;
+        }
+
+        /* Apply the custom cursor to the body */
+        html {
+            cursor: url("test.svg") 50 50, auto;
+            /* Specify a fallback cursor in case the custom cursor is not supported */
+        }
+
+        /* Additional styling for demonstration purposes */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        .content {
+            margin-top: 60px;
+        }
+
+        .content:hover {
+            color: red;
+        }
+
+        img:hover {
+            filter: hue-rotate(90deg)
+        }
+    </style>
+    <title>Custom Cursor Example</title>
+</head>
+
+<body>
+    <h1>Custom Cursor Example</h1>
+    <div class="content">
+        <p>This is some content where the custom cursor will be applied.</p>
+        <p>Move your cursor to see the custom cursor in action!</p>
+    </div>
+    <img class="custom-cursor" src="test.svg" alt="svg">
+</body>
+
+</html>
