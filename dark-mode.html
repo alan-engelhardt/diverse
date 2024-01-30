@@ -5,6 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        html:has(#dark-mode:checked) {
+            background-color: black;
+            color: white;
+        }
+
+        header {
+            text-align: right;
+        }
+
         article {
             text-align: center;
             padding-top: 1em;
@@ -27,6 +40,10 @@
 </head>
 
 <body>
+    <header>
+        <label for="dark-mode">Dark</label>
+        <input type="checkbox" id="dark-mode">
+    </header>
     <article>
         <div>
             <img src="test.svg" alt="sigtekorn">
