@@ -1,0 +1,22 @@
+html {
+  padding: 3em;
+  font-family: system-ui;
+  background-color: black;
+  color: #ddd;
+  stroke: #ddd;
+}
+
+html:has(#light-mode:checked) {
+  background-color: white;
+  color: #111;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  padding: 1em;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+}
