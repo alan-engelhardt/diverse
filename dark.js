@@ -1,17 +1,16 @@
-window.addEventListener("DOMContentLoaded", tjekDarkMode);
+window.addEventListener("DOMContentLoaded", checkMode);
 let chkbox;
 
-function tjekDarkMode() {
+function checkMode() {
   chkbox = document.querySelector("#light-mode");
   chkbox.addEventListener("change", setMode);
 
-  const cookieValue = document.cookie
+  const lightMode = document.cookie
     .split("; ")
     .find((row) => row.startsWith("lightMode="))
     ?.split("=")[1];
 
-  cookieValue == "off" ? (chkbox.checked = false) : (chkbox.checked = true);
-  console.log(cookieValue);
+  lightMode == "off" ? (chkbox.checked = false) : (chkbox.checked = true);
 }
 
 function setMode() {
