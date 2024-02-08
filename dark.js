@@ -1,13 +1,13 @@
 window.addEventListener("DOMContentLoaded", tjekDarkMode);
-let cbox;
+let chkbox;
 
 function tjekDarkMode() {
-  cbox = document.querySelector("#light-mode");
-  cbox.addEventListener("change", setMode);
-  document.cookie == "dark" ? (cbox.checked = false) : (cbox.checked = true);
+  chkbox = document.querySelector("#light-mode");
+  chkbox.addEventListener("change", setMode);
+  document.cookie == "dark" ? (chkbox.checked = false) : (chkbox.checked = true);
   console.log(document.cookie);
 }
 
 function setMode() {
-  cbox.checked ? (document.cookie = "light") : (document.cookie = "dark");
+  chkbox.checked ? (document.cookie = "light") : (document.cookie = "dark");
 }
