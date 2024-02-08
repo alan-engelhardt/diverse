@@ -4,11 +4,11 @@ let chkbox;
 function checkMode() {
   chkbox = document.querySelector("#light-mode");
   chkbox.addEventListener("change", setMode);
-
+  console.log(document.cookie);
   const lightMode = document.cookie
     .split("; ")
     .find((row) => row.startsWith("lightMode="))
-    ?.split("=")[1];
+    .split("=")[1];
 
   lightMode == "off" ? (chkbox.checked = false) : (chkbox.checked = true);
 }
