@@ -11,11 +11,3 @@ function tjekDarkMode() {
 function setMode() {
   cbox.checked ? (document.cookie = "light") : (document.cookie = "dark");
 }
-
-// if (document.cookie == "dark") {
-//   console.log("mørk mode");
-//   cbox.checked = false;
-// } else {
-//   console.log("lys mode");
-//   cbox.checked = true;
-// }
