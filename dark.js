@@ -7,9 +7,9 @@ function checkMode() {
   console.log(document.cookie);
   const lightMode =
     document.cookie
-      ?.split("; ")
+      ?.split("; ") // optional chaining (?.)
       .find((row) => row.startsWith("lightMode="))
-      ?.split("=")[1] ?? null;
+      ?.split("=")[1] ?? null; // nullish coalescing (??)
 
   lightMode == "off" ? (chkbox.checked = false) : (chkbox.checked = true);
 }
