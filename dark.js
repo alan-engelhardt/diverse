@@ -4,12 +4,11 @@ let chkbox;
 function checkMode() {
   chkbox = document.querySelector("#light-mode");
   chkbox.addEventListener("change", setMode);
-  console.log(document.cookie);
   const lightMode =
     document.cookie
       ?.split("; ") // optional chaining (?.)
       .find((row) => row.startsWith("lightMode="))
-      ?.split("=")[1] ?? null; // nullish coalescing (??)
+      ?.split("=")[1] ?? console.error("'lightMode' cookie not found or malformed");
 
   lightMode == "off" ? (chkbox.checked = false) : (chkbox.checked = true);
 }
