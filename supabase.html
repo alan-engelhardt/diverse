@@ -47,7 +47,14 @@
 
 <body>
     <h1>Supabase test</h1>
-    <nav><a href="?">Alle</a><a href="?season=marts">Marts</a><a href="?season=juni">Juni</a></nav>
+    <nav>
+        <a href="?">Alle</a>
+        <a href="?season=Marts">Marts</a>
+        <a href="?season=Juni">Juni</a>
+        <a href="?area=Mark">Mark</a>
+        <a href="?area=Skov">Skov</a>
+        <a href="?area=Mose">Mose</a>
+    </nav>
     <main></main>
     <template>
         <article>
@@ -60,7 +67,7 @@
     </template>
     <script>
         const params = new URLSearchParams(window.location.search);
-        const navn = params.get("navn");
+        const area = params.get("area");
         const season = params.get("season");
         const url = "https://jftyavgnjvzhcjchqdpg.supabase.co/rest/v1/test1"
         const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmdHlhdmduanZ6aGNqY2hxZHBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDc3NTQ3MTIsImV4cCI6MjAyMzMzMDcxMn0.Tov11N_g-ERTctEqGBbYOr8FgVmDLWfB_-m1MbWcnEw";
@@ -71,25 +78,13 @@
             }
         }
 
-        window.addEventListener("load", () => hentNavne());
-
-        function hentNavne() {
-            const endp = url + "?select=navn";
-            fetch(endp, options).then(res => res.json()).then(bygNav);
-        }
-
-        function bygNav(navne) {
-            const nav = document.querySelector("nav");
-            navne.forEach(elm => {
-                nav.innerHTML += `<a href="?navn=${elm.navn}">${elm.navn}</a>`;
-            });
-            hentData();
-        }
+        window.addEventListener("load", () => hentData());
 
         function hentData() {
+            marker();
             //const endp = navn ? url + "?navn=eq." + navn : url;
-            if (navn) {
-                endp = url + "?navn=eq." + navn;
+            if (area) {
+                endp = `${url}?areas=ilike.*${area}*`;
             } else if (season) {
                 endp = `${url}?seasons=ilike.*${season}*`;
             } else {
@@ -114,10 +109,16 @@
             });
         }
 
+        const knapper = document.querySelectorAll("a");
+
         function marker(e) {
-            console.log(this)
-            e.preventDefault();
-            e.target.classList.add("aktiv");
+            knapper.forEach(knap => {
+                knap.classList.remove("aktiv");
+                console.log(knap.textContent)
+                if (knap.textContent == area || knap.textContent == season) {
+                    knap.classList.add("aktiv");
+                }
+            });
         }
     </script>
 </body>
