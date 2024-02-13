@@ -7,8 +7,15 @@
     <title>test</title>
     <style>
         body {
+            --main: #342;
+            color: var(--main);
             max-width: 900px;
             margin: auto;
+            font-family: system-ui;
+        }
+
+        nav {
+            padding: 1rem 0 3rem;
         }
 
         a {
@@ -16,13 +23,24 @@
             margin: .2rem;
             text-decoration: none;
             border-radius: .5rem;
-            background-color: #333;
+            background-color: var(--main);
             color: white;
+        }
+
+        .aktiv {
+            background-color: inherit;
+            color: var(--main);
+            border: 1px solid;
         }
 
         main {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
+
+        article {
+            border-left: 1px solid;
+            padding: 1rem;
         }
     </style>
 </head>
@@ -44,8 +62,6 @@
         const params = new URLSearchParams(window.location.search);
         const navn = params.get("navn");
         const season = params.get("season");
-        console.log(navn);
-
         const url = "https://jftyavgnjvzhcjchqdpg.supabase.co/rest/v1/test1"
         const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmdHlhdmduanZ6aGNqY2hxZHBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDc3NTQ3MTIsImV4cCI6MjAyMzMzMDcxMn0.Tov11N_g-ERTctEqGBbYOr8FgVmDLWfB_-m1MbWcnEw";
         const options = {
@@ -65,7 +81,6 @@
         function bygNav(navne) {
             const nav = document.querySelector("nav");
             navne.forEach(elm => {
-                console.log(elm.navn)
                 nav.innerHTML += `<a href="?navn=${elm.navn}">${elm.navn}</a>`;
             });
             hentData();
@@ -84,7 +99,6 @@
         }
 
         function visData(data) {
-            console.log("data: " + data);
             const template = document.querySelector("template").content;
             const main = document.querySelector("main")
             data.forEach(elm => {
@@ -98,6 +112,12 @@
                 })
                 main.appendChild(klon);
             });
+        }
+
+        function marker(e) {
+            console.log(this)
+            e.preventDefault();
+            e.target.classList.add("aktiv");
         }
     </script>
 </body>
