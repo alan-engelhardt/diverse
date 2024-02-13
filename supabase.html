@@ -112,13 +112,17 @@
         const knapper = document.querySelectorAll("a");
 
         function marker(e) {
-            knapper.forEach(knap => {
-                knap.classList.remove("aktiv");
-                console.log(knap.textContent)
-                if (knap.textContent == area || knap.textContent == season) {
-                    knap.classList.add("aktiv");
-                }
-            });
+            if (area || season) {
+                knapper.forEach(knap => {
+                    if (knap.textContent == area || knap.textContent == season) {
+                        knap.classList.add("aktiv");
+                    } else {
+                        knap.classList.remove("aktiv");
+                    }
+                });
+            } else {
+                knapper[0].classList.add("aktiv");
+            }
         }
     </script>
 </body>
