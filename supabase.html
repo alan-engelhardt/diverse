@@ -6,8 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>test</title>
     <style>
+        body {
+            max-width: 900px;
+            margin: auto;
+        }
+
         a {
             padding: 1em;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         }
     </style>
 </head>
@@ -17,10 +27,13 @@
     <nav><a href="?">Alle</a><a href="?season=marts">Marts</a><a href="?season=juni">Juni</a></nav>
     <main></main>
     <template>
-        <h2></h2>
-        <p>Oprettet: <span></span></p>
-        <p>Mobil: <span></span></p>
-        <ol></ol>
+        <article>
+            <h2></h2>
+            <label for="areas">Områder</label>
+            <ul class="areas"></ul>
+            <label for="season">Sæson</label>
+            <ul class="season"></ul>
+        </article>
     </template>
     <script>
         const params = new URLSearchParams(window.location.search);
@@ -72,10 +85,11 @@
             data.forEach(elm => {
                 const klon = template.cloneNode(true);
                 klon.querySelector("h2").textContent = elm.navn;
-                klon.querySelector("p span").textContent = elm.created_at.slice(0, 10);
-                klon.querySelector("p+p span").textContent = elm.mobil;
+                elm.areas.split(", ").forEach(elm => {
+                    klon.querySelector(".areas").innerHTML += "<li>" + elm + "</li>";
+                })
                 elm.seasons.split(", ").forEach(elm => {
-                    klon.querySelector("ol").innerHTML += "<li>" + elm + "</li>";
+                    klon.querySelector(".season").innerHTML += "<li>" + elm + "</li>";
                 })
                 main.appendChild(klon);
             });
