@@ -20,6 +20,7 @@
         <h2></h2>
         <p>Oprettet: <span></span></p>
         <p>Mobil: <span></span></p>
+        <ul></ul>
     </template>
     <script>
         const params = new URLSearchParams(window.location.search);
@@ -38,7 +39,7 @@
         window.addEventListener("load", () => hentNavne());
 
         function hentNavne() {
-            endp = url + "?select=navn";
+            const endp = url + "?select=navn";
             fetch(endp, options).then(res => res.json()).then(bygNav);
         }
 
@@ -52,7 +53,7 @@
         }
 
         function hentData() {
-            navn ? endp = url + "?navn=eq." + navn : endp = url;
+            const endp = navn ? url + "?navn=eq." + navn : url;
             fetch(endp, options).then(res => res.json()).then(visData);
         }
 
@@ -65,6 +66,9 @@
                 klon.querySelector("h2").textContent = elm.navn;
                 klon.querySelector("p span").textContent = elm.created_at.slice(0, 10);
                 klon.querySelector("p+p span").textContent = elm.mobil;
+                elm.liste.split(", ").forEach(elm => {
+                    klon.querySelector("ul").innerHTML += "<li>" + elm + "</li>";
+                })
                 main.appendChild(klon);
             });
         }
