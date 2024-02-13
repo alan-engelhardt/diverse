@@ -14,17 +14,18 @@
 
 <body>
     <h1>Supabase test</h1>
-    <nav><a href="?">Alle</a></nav>
+    <nav><a href="?">Alle</a><a href="?season=marts">Marts</a><a href="?season=juni">Juni</a></nav>
     <main></main>
     <template>
         <h2></h2>
         <p>Oprettet: <span></span></p>
         <p>Mobil: <span></span></p>
-        <ul></ul>
+        <ol></ol>
     </template>
     <script>
         const params = new URLSearchParams(window.location.search);
         const navn = params.get("navn");
+        const season = params.get("season");
         console.log(navn);
 
         const url = "https://jftyavgnjvzhcjchqdpg.supabase.co/rest/v1/test1"
@@ -53,7 +54,14 @@
         }
 
         function hentData() {
-            const endp = navn ? url + "?navn=eq." + navn : url;
+            //const endp = navn ? url + "?navn=eq." + navn : url;
+            if (navn) {
+                endp = url + "?navn=eq." + navn;
+            } else if (season) {
+                endp = `${url}?seasons=ilike.*${season}*`;
+            } else {
+                endp = url;
+            }
             fetch(endp, options).then(res => res.json()).then(visData);
         }
 
@@ -66,8 +74,8 @@
                 klon.querySelector("h2").textContent = elm.navn;
                 klon.querySelector("p span").textContent = elm.created_at.slice(0, 10);
                 klon.querySelector("p+p span").textContent = elm.mobil;
-                elm.liste.split(", ").forEach(elm => {
-                    klon.querySelector("ul").innerHTML += "<li>" + elm + "</li>";
+                elm.seasons.split(", ").forEach(elm => {
+                    klon.querySelector("ol").innerHTML += "<li>" + elm + "</li>";
                 })
                 main.appendChild(klon);
             });
