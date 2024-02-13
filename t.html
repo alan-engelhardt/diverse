@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <style>
+        a {
+            padding: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Supabase test</h1>
+    <nav><a href="?">Alle</a></nav>
+    <main></main>
+    <template>
+        <h2></h2>
+        <p>Oprettet: <span></span></p>
+        <p>Mobil: <span></span></p>
+    </template>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const navn = params.get("navn");
+        console.log(navn);
+
+        const url = "https://jftyavgnjvzhcjchqdpg.supabase.co/rest/v1/test1"
+        const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmdHlhdmduanZ6aGNqY2hxZHBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDc3NTQ3MTIsImV4cCI6MjAyMzMzMDcxMn0.Tov11N_g-ERTctEqGBbYOr8FgVmDLWfB_-m1MbWcnEw";
+        const options = {
+            method: "GET",
+            headers: {
+                apikey: key
+            }
+        }
+
+        window.addEventListener("load", () => hentNavne());
+
+        function hentNavne() {
+            endp = url + "?select=navn";
+            fetch(endp, options).then(res => res.json()).then(bygNav);
+        }
+
+        function bygNav(navne) {
+            const nav = document.querySelector("nav");
+            navne.forEach(elm => {
+                console.log(elm.navn)
+                nav.innerHTML += `<a href="?navn=${elm.navn}">${elm.navn}</a>`;
+            });
+            hentData();
+        }
+
+        function hentData() {
+            navn ? endp = url + "?navn=eq." + navn : endp = url;
+            fetch(endp, options).then(res => res.json()).then(visData);
+        }
+
+        function visData(data) {
+            console.log("data: " + data);
+            const template = document.querySelector("template").content;
+            const main = document.querySelector("main")
+            data.forEach(elm => {
+                const klon = template.cloneNode(true);
+                klon.querySelector("h2").textContent = elm.navn;
+                klon.querySelector("p span").textContent = elm.created_at.slice(0, 10);
+                klon.querySelector("p+p span").textContent = elm.mobil;
+                main.appendChild(klon);
+            });
+        }
+    </script>
+</body>
+
+</html>
