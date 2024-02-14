@@ -22,15 +22,14 @@
             padding: .5rem;
             margin: .2rem;
             text-decoration: none;
-            border-radius: .5rem;
-            background-color: var(--main);
-            color: white;
+            border-radius: .2rem;
+            border: 1px solid;
+            color: var(--main);
         }
 
         .aktiv {
-            background-color: inherit;
-            color: var(--main);
-            border: 1px solid;
+            color: white;
+            background-color: var(--main);
         }
 
         main {
@@ -42,6 +41,10 @@
             border-left: 1px solid;
             padding: 1rem;
         }
+
+        article:nth-last-child(1) {
+            border-right: 1px solid;
+        }
     </style>
 </head>
 
@@ -49,13 +52,13 @@
     <h1>Supabase test</h1>
     <nav>
         <a href="?">Alle</a>
-        <a href="?season=Januar">Januar</a>
-        <a href="?season=Marts">Marts</a>
-        <a href="?season=April">April</a>
-        <a href="?season=Juni">Juni</a>
-        <a href="?area=Mark">Mark</a>
-        <a href="?area=Skov">Skov</a>
-        <a href="?area=Mose">Mose</a>
+        <a href="?season=januar">Januar</a>
+        <a href="?season=marts">Marts</a>
+        <a href="?season=april">April</a>
+        <a href="?season=juni">Juni</a>
+        <a href="?area=mark">Mark</a>
+        <a href="?area=skov">Skov</a>
+        <a href="?area=mose">Mose</a>
     </nav>
     <main></main>
     <template>
@@ -102,10 +105,20 @@
                 const klon = template.cloneNode(true);
                 klon.querySelector("h2").textContent = elm.navn;
                 elm.areas.split(", ").forEach(elm => {
-                    klon.querySelector(".areas").innerHTML += "<li>" + elm + "</li>";
+                    const newLi = document.createElement("li");
+                    newLi.textContent = elm;
+                    if (elm == area) {
+                        newLi.style.color = "orange";
+                    }
+                    klon.querySelector(".areas").appendChild(newLi);
                 })
                 elm.seasons.split(", ").forEach(elm => {
-                    klon.querySelector(".season").innerHTML += "<li>" + elm + "</li>";
+                    const newLi = document.createElement("li");
+                    newLi.textContent = elm;
+                    if (elm == season) {
+                        newLi.style.color = "orange";
+                    }
+                    klon.querySelector(".season").appendChild(newLi);
                 })
                 main.appendChild(klon);
             });
@@ -113,10 +126,11 @@
 
         const knapper = document.querySelectorAll("a");
 
-        function marker(e) {
+        function marker() {
             if (area || season) {
                 knapper.forEach(knap => {
-                    if (knap.textContent == area || knap.textContent == season) {
+                    console.log(knap.textContent.toLowerCase())
+                    if (knap.textContent.toLowerCase() == area || knap.textContent.toLowerCase() == season) {
                         knap.classList.add("aktiv");
                     } else {
                         knap.classList.remove("aktiv");
