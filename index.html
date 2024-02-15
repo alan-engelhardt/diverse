@@ -5,23 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>form test</title>
+    <style>
+        * {
+            font-family: system-ui;
+        }
+
+        form {
+            margin: 2rem;
+        }
+
+        label,
+        input,
+        button {
+            display: block;
+        }
+
+        input,
+        textarea {
+            margin-top: .2rem;
+            margin-bottom: .8rem;
+        }
+    </style>
 </head>
 
 <body>
     <h1>Form test</h1>
     <form name="contact" method="POST" netlify>
-        <p>
-            <label for="name">Your Name: <input type="text" id="name" name="name" /></label>
-        </p>
-        <p>
-            <label>Your Email: <input type="email" name="email" /></label>
-        </p>
-        <p>
-            <label>Message: <textarea name="message"></textarea></label>
-        </p>
-        <p>
-            <button type="submit">Send</button>
-        </p>
+        <label for="name">Your Name: <input type="text" id="name" name="name" /></label>
+        <label for="email">Your Email: <input type="email" id="email" name="email" /></label>
+        <label for="message">Message: </label><textarea id="message" name="message"></textarea>
+        <button type="submit">Send</button>
+
     </form>
 
 </body>
