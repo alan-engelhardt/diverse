@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>opskrift</title>
+    <style>
+        body {
+            --main: #342;
+            color: var(--main);
+            max-width: 900px;
+            margin: auto;
+            font-family: system-ui;
+        }
+
+        nav {
+            padding: 1rem 0 3rem;
+        }
+
+        a {
+            padding: .5rem;
+            margin: .2rem;
+            text-decoration: none;
+            border-radius: .2rem;
+            border: 1px solid;
+            color: var(--main);
+        }
+
+        .aktiv {
+            color: white;
+            background-color: var(--main);
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        }
+
+        article {
+            border-left: 1px solid;
+            padding: 1rem;
+        }
+
+        article:nth-last-child(1) {
+            border-right: 1px solid;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Supabase test</h1>
+    <main></main>
+    <template>
+        <article>
+            <h2></h2>
+            <label for="ingredienser">Ingredienser</label>
+            <ul class="ingredienser"></ul>
+            <h3>Fremgangsmåde</h3>
+            <p class="fremgang"></p>
+        </article>
+    </template>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+        const url = "https://jftyavgnjvzhcjchqdpg.supabase.co/rest/v1/opskrifter"
+        const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmdHlhdmduanZ6aGNqY2hxZHBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDc3NTQ3MTIsImV4cCI6MjAyMzMzMDcxMn0.Tov11N_g-ERTctEqGBbYOr8FgVmDLWfB_-m1MbWcnEw";
+        const options = {
+            method: "GET",
+            headers: {
+                apikey: key
+            }
+        }
+
+        window.addEventListener("load", () => hentData());
+
+        function hentData() {
+
+            fetch(url, options).then(res => res.json()).then(visData);
+        }
+
+        function visData(data) {
+            const template = document.querySelector("template").content;
+            const main = document.querySelector("main")
+            data.forEach(elm => {
+                const klon = template.cloneNode(true);
+                klon.querySelector("h2").textContent = elm.titel;
+                elm.ingredienser.split("\n").forEach(elm => {
+                    const newLi = document.createElement("li");
+                    newLi.textContent = elm;
+                    klon.querySelector(".ingredienser").appendChild(newLi);
+                })
+                klon.querySelector(".fremgang").textContent = elm.fremgang;
+                main.appendChild(klon);
+            });
+        }
+    </script>
+</body>
+
+</html>
