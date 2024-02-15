@@ -49,7 +49,7 @@
 </head>
 
 <body>
-    <h1>Supabase test</h1>
+    <h1>Supabase opskrift</h1>
     <main></main>
     <template>
         <article>
@@ -63,7 +63,7 @@
     <script>
         const params = new URLSearchParams(window.location.search);
         const id = params.get("id");
-        const url = "https://jftyavgnjvzhcjchqdpg.supabase.co/rest/v1/opskrifter"
+        const url = "https://jftyavgnjvzhcjchqdpg.supabase.co/rest/v1/opskrifter?id=eq." + id;
         const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmdHlhdmduanZ6aGNqY2hxZHBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDc3NTQ3MTIsImV4cCI6MjAyMzMzMDcxMn0.Tov11N_g-ERTctEqGBbYOr8FgVmDLWfB_-m1MbWcnEw";
         const options = {
             method: "GET",
@@ -75,24 +75,21 @@
         window.addEventListener("load", () => hentData());
 
         function hentData() {
-
             fetch(url, options).then(res => res.json()).then(visData);
         }
 
-        function visData(data) {
+        function visData(elm) {
             const template = document.querySelector("template").content;
             const main = document.querySelector("main")
-            data.forEach(elm => {
-                const klon = template.cloneNode(true);
-                klon.querySelector("h2").textContent = elm.titel;
-                elm.ingredienser.split("\n").forEach(elm => {
-                    const newLi = document.createElement("li");
-                    newLi.textContent = elm;
-                    klon.querySelector(".ingredienser").appendChild(newLi);
-                })
-                klon.querySelector(".fremgang").textContent = elm.fremgang;
-                main.appendChild(klon);
-            });
+            const klon = template.cloneNode(true);
+            klon.querySelector("h2").textContent = elm[0].titel;
+            elm[0].ingredienser.split("\n").forEach(indgrediens => {
+                const newLi = document.createElement("li");
+                newLi.textContent = indgrediens;
+                klon.querySelector(".ingredienser").appendChild(newLi);
+            })
+            klon.querySelector(".fremgang").textContent = elm[0].fremgang;
+            main.appendChild(klon);
         }
     </script>
 </body>
