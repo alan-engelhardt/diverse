@@ -27,23 +27,10 @@
             color: var(--main);
         }
 
-        .aktiv {
-            color: white;
-            background-color: var(--main);
-        }
 
         main {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-        }
-
-        article {
-            border-left: 1px solid;
-            padding: 1rem;
-        }
-
-        article:nth-last-child(1) {
-            border-right: 1px solid;
         }
     </style>
 </head>
@@ -54,7 +41,7 @@
     <template>
         <article>
             <h2></h2>
-            <label for="ingredienser">Ingredienser</label>
+            <strong><label for="ingredienser">Ingredienser</label></strong>
             <ul class="ingredienser"></ul>
             <h3>Fremgangsmåde</h3>
             <p class="fremgang"></p>
