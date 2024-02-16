@@ -8,21 +8,31 @@
     <style>
         * {
             font-family: system-ui;
-            color: #242;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding: 3rem;
+        }
+
+        h1 {
+            margin-bottom: 1rem;
         }
 
         form {
-            margin: 2rem;
             display: flex;
             flex-direction: column;
             width: 12rem;
         }
 
         input,
-        textarea {
-            margin-top: .2rem;
-            margin-bottom: .8rem;
+        textarea,
+        button {
             width: 100%;
+            margin-bottom: .5rem;
+            margin-top: .2rem;
         }
 
         textarea {
